@@ -1,4 +1,5 @@
 (function() {
+
   'use strict';
 
   var http = require('http'),
@@ -12,6 +13,8 @@
     errorhandler = require('errorhandler'),
     logger = require('./utils/logger'),
     mongoose = require('mongoose'),
+    PegawaiRoute = require('./routes/PegawaiRoute'),
+    PageRoute = require('./routes/PageRoute'),
     app = express();
 
   app.set('port', process.env.PORT || 3000);
@@ -35,24 +38,20 @@
   app.use(express.static(path.join(__dirname, 'public')));
   app.use(express.static(path.join(__dirname, 'bower_components')));
 
-  app.get('/', function(req, res) {
-    return res.render('index');
-  });
+  app.use('/api/', PegawaiRoute);
+  app.use('/', PageRoute);
 
   mongoose.connect('mongodb://localhost/BelajarExpressJS', function(err, res) {
     if (err) {
       return logger.error('koneksi mongodb gagal bung', err);
     } else {
-      return logger.info('koneksi mongodb berhasil');
+      return logger.info('koneksi mongodb berhasil bung');
     }
   });
 
   if ('development' === app.get('env')) {
     app.use(errorhandler());
   }
-
-  var PegawaiRoute = require('./routes/PegawaiRoute');
-  app.use('/api/', PegawaiRoute);
 
   var server = http.createServer(app);
   server.listen(app.get('port'), function() {

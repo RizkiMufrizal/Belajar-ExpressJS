@@ -1,0 +1,37 @@
+extends ./layout.jade
+
+block title
+  title Data Pegawai
+block content
+  div.container
+    div.row
+      div.col-xs-6.col-md-1
+      div.col-xs-6.col-md-10
+        p
+          a.class(href='/tambah/pegawai')
+            button(type="button").btn.btn-primary Tambah
+        p
+        table.table.table-bordered.table-striped.table-hover
+          thead
+            tr
+              th.text-center Id Pegawai
+              th.text-center Nama Pegawai
+              th.text-center Alamat
+              th.text-center Tanggal Lahir
+              th.text-center Aksi
+          tbody
+            each pegawai in pegawais
+              tr
+                td #{pegawai.idPegawai}
+                td #{pegawai.namaPegawai}
+                td #{pegawai.alamat}
+                td #{pegawai.tanggalLahir}
+                td.text-center
+                  a.class(href='/edit/pegawai/#{pegawai.idPegawai}')
+                    button(type="button").btn.btn-success Edit
+                  a.class(href='/delete/pegawai/#{pegawai.idPegawai}', onclick='return confirm("Apakah anda ingin menghapus data ?")')
+                    input(type="hidden", name="_csrf" value="#{csrfToken}")
+                    button(type="button").btn.btn-danger Delete
+      div.col-xs-6.col-md-4
+
+    

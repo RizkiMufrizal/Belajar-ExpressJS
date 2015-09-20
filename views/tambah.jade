@@ -1,0 +1,22 @@
+extends ./layout.jade
+
+block title
+  title Tambah Data Pegawai
+block content
+  div.container
+    div.row
+      div.col-xs-6.col-md-4
+      div.col-xs-6.col-md-4
+        form(id="form", method="post", action="/save/pegawai")
+          .form-group
+            label Nama Pegawai
+            input(type="text", placeholder="Nama Pegawai", name="namaPegawai").form-control
+          .form-group
+            label Alamat
+            textarea(placeholder="Alamat", name="alamat").form-control
+          .form-group
+            label Tanggal Lahir
+            input(type="date", placeholder="Tanggal Lahir", name="tanggalLahir").form-control
+          input(type="hidden", name="_csrf" value="#{csrfToken}")
+          button(type="submit").btn.btn-primary Save
+      div.col-xs-6.col-md-4

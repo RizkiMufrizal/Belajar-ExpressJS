@@ -30,7 +30,6 @@ block content
                   a.class(href='/edit/pegawai/#{pegawai.idPegawai}')
                     button(type="button").btn.btn-success Edit
                   a.class(href='/delete/pegawai/#{pegawai.idPegawai}', onclick='return confirm("Apakah anda ingin menghapus data ?")')
-                    input(type="hidden", name="_csrf" value="#{csrfToken}")
                     button(type="button").btn.btn-danger Delete
       div.col-xs-6.col-md-4
 

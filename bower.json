@@ -1,0 +1,24 @@
+{
+  "name": "Belajar-ExpressJS",
+  "version": "0.0.1",
+  "authors": [
+    "Rizki Mufrizal <mufrizalrizki@gmail.com>"
+  ],
+  "main": "index.jade",
+  "moduleType": [
+    "globals"
+  ],
+  "license": "MIT",
+  "homepage": "cek",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "jquery": "~2.1.4",
+    "bootstrap": "~3.3.5"
+  }
+}

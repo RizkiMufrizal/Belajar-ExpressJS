@@ -14,13 +14,14 @@
   "license": "ISC",
   "dependencies": {
     "body-parser": "^1.13.2",
-    "ejs": "^2.3.3",
     "errorhandler": "^1.4.1",
     "express": "^4.13.1",
     "express-session": "^1.11.3",
+    "jade": "^1.11.0",
     "method-override": "^2.3.4",
     "mongoose": "^4.1.0",
     "morgan": "^1.6.1",
+    "node-uuid": "^1.4.3",
     "serve-favicon": "^2.3.0",
     "winston": "^1.0.1"
   }

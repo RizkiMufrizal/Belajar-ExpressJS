@@ -2,24 +2,25 @@
   'use strict';
 
   var http = require('http'),
-    express = require('express'),
-    path = require('path'),
+    express = require('express'), //express
+    path = require('path'), //untuk path folder
     favicon = require('serve-favicon'), //untuk favicon
     morgan = require('morgan'), //untuk log aplikasi
     methodOverride = require('method-override'),
-    session = require('express-session'),
-    bodyParser = require('body-parser'),
-    errorhandler = require('errorhandler'),
-    logger = require('./utils/logger'),
-    mongoose = require('mongoose'),
+    session = require('express-session'), //session
+    bodyParser = require('body-parser'), //handle rest
+    errorhandler = require('errorhandler'), //error
+    logger = require('./utils/logger'), //loging
+    mongoose = require('mongoose'), //mongoose
+    cookieParser = require('cookie-parser'),
     PegawaiRoute = require('./routes/PegawaiRoute'),
-    PageRoute = require('./routes/PageRoute'),
     app = express();
 
   app.set('port', process.env.PORT || 3000);
   app.set('views', path.join(__dirname, 'views'));
-  app.set('view engine', 'ejs');
+  app.set('view engine', 'jade');
 
+  app.use(cookieParser());
   app.use(favicon(__dirname + '/public/favicon.ico'));
   app.use(morgan('combined', {
     stream: logger.stream
@@ -30,15 +31,13 @@
     saveUninitialized: true,
     secret: 'uwotm8'
   }));
-  app.use(bodyParser.json());
   app.use(bodyParser.urlencoded({
     extended: true
   }));
   app.use(express.static(path.join(__dirname, 'public')));
   app.use(express.static(path.join(__dirname, 'bower_components')));
 
-  app.use('/api/', PegawaiRoute);
-  app.use('/', PageRoute);
+  app.use('/', PegawaiRoute);
 
   mongoose.connect('mongodb://localhost/BelajarExpressJS', function(err, res) {
     if (err) {
@@ -51,6 +50,14 @@
   if ('development' === app.get('env')) {
     app.use(errorhandler());
   }
+
+  app.use(function(err, req, res, next) {
+    if (err.code !== 'EBADCSRFTOKEN') return next(err)
+
+    // handle CSRF token errors here
+    res.status(403)
+    res.send('csrf token tidak tersedia bung');
+  });
 
   var server = http.createServer(app);
   server.listen(app.get('port'), function() {

@@ -1,0 +1,26 @@
+extends ./layout.jade
+
+block title
+  title Edit Data Pegawai
+block content
+  div.container
+    div.row
+      div.col-xs-6.col-md-4
+      div.col-xs-6.col-md-4
+        form(id="form", method="post", action="/update/pegawai/#{pegawai.idPegawai}")
+          .form-group
+            label Id Pegawai
+            input(type="text", placeholder="Id Pegawai", name="idPegawai", value="#{pegawai.idPegawai}", disabled).form-control
+          .form-group
+            label Nama Pegawai
+            input(type="text", placeholder="Nama Pegawai", name="namaPegawai", value="#{pegawai.namaPegawai}").form-control
+          .form-group
+            label Alamat
+            textarea(type="text",placeholder="Alamat", name="alamat").form-control
+              | #{pegawai.alamat}
+          .form-group
+            label Tanggal Lahir
+            input(type="text", placeholder="Tanggal Lahir", name="tanggalLahir", value="#{pegawai.tanggalLahir}").form-control
+          input(type="hidden", name="_csrf" value="#{csrfToken}")
+          button(type="submit").btn.btn-primary Save
+      div.col-xs-6.col-md-4
